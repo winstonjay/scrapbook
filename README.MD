@@ -1,5 +1,3 @@
-# ScrapBook
-
 Code from mini projects experiments etc...
 
 ### Directories:
