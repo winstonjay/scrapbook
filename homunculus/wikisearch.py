@@ -52,9 +52,9 @@ def bidirectional_search(start, end, successors):
     # iniital state space.
     if start == end:
         return [[start]]
-    if end == "Homunculus":
-        print("using seeded graph")
-        return seeded_bidirectional_search(start, successors)
+    # if end == "Homunculus":
+    #     print("using seeded graph")
+    #     return seeded_bidirectional_search(start, successors)
 
     l_explored, l_front = set(), deque([[start]])
     r_explored, r_front = set(), deque([[end]])
