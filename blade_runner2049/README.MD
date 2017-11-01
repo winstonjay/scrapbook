@@ -9,6 +9,7 @@ Collects Rotten Tomato audience reviews from pages 1 - 52 and saves results in p
 
 	ngrams.py <input file (str)> <N-gram count (int)> <save to disk (T/F)>
 eg:
+
 	ngrams.py 'data/rawout.txt' 3 T
 
 **markov.py:** Provides class for generating movie reviews from generated n-grams.
