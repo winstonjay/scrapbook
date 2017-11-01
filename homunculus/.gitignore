@@ -4,3 +4,5 @@
 !jsoncache.py
 !collectgraph.py
 !collectHomo.py
+
+*.ipynb
