@@ -5,6 +5,10 @@ articles with the default end node set to the article 'Homunculus'. It does this
 prints the path on the screen. Return times vary massively and are very much dependent on the amount
 of requests needed. Results by default are saved to a json file.
 
+### My Answer:
+
+**Average path length:** ```3.48`` Links
+
 TODO:
 Get all results from each item and check all connections for overlaps.
 
