@@ -1,0 +1,113 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="542" height="289.96" viewBox="0 0 542 289.96">
+  <defs>
+    <style>
+      .a, .b, .c, .d, .e {
+        fill: none;
+        stroke-miterlimit: 10;
+        stroke-width: 4px;
+      }
+
+      .a, .b, .c, .d {
+        stroke: #b0bec5;
+      }
+
+      .b, .i {
+        opacity: 0.4;
+      }
+
+      .c, .d {
+        stroke-dasharray: 5 5;
+      }
+
+      .d {
+        opacity: 0.44;
+      }
+
+      .e {
+        stroke: #3fa9f5;
+        opacity: 0.5;
+      }
+
+      .f {
+        fill: #ffc107;
+      }
+
+      .g {
+        fill: #69f0ae;
+      }
+
+      .h {
+        fill: #3fa9f5;
+      }
+
+      .j {
+        fill: #e91e63;
+      }
+    </style>
+  </defs>
+  <title>Untitled-1</title>
+  <g>
+    <line class="a" x1="18.65" y1="162.85" x2="82.05" y2="234.95"/>
+    <line class="b" x1="386.61" y1="200.14" x2="313.27" y2="165.33"/>
+    <line class="c" x1="318.24" y1="19.89" x2="155.39" y2="55.94"/>
+    <line class="a" x1="82.05" y1="90.75" x2="18.65" y2="162.85"/>
+    <line class="a" x1="155.39" y1="55.94" x2="82.05" y2="90.75"/>
+    <line class="a" x1="155.39" y1="126.8" x2="82.05" y2="90.75"/>
+    <line class="a" x1="155.39" y1="200.14" x2="82.05" y2="234.95"/>
+    <line class="a" x1="155.39" y1="271" x2="82.05" y2="234.95"/>
+    <line class="a" x1="523.35" y1="162.85" x2="459.95" y2="234.95"/>
+    <line class="a" x1="313.27" y1="19.89" x2="386.61" y2="54.7"/>
+    <line class="a" x1="313.27" y1="90.75" x2="386.61" y2="54.7"/>
+    <line class="a" x1="459.95" y1="90.75" x2="523.35" y2="162.85"/>
+    <line class="a" x1="386.61" y1="55.94" x2="459.95" y2="90.75"/>
+    <line class="a" x1="386.61" y1="126.8" x2="459.95" y2="90.75"/>
+    <line class="a" x1="386.61" y1="200.14" x2="459.95" y2="234.95"/>
+    <line class="a" x1="386.61" y1="271" x2="459.95" y2="234.95"/>
+    <line class="d" x1="317.62" y1="165.96" x2="21.75" y2="163.47"/>
+    <line class="e" x1="318.24" y1="19.89" x2="155.39" y2="55.94"/>
+    <line class="e" x1="82.05" y1="90.75" x2="18.65" y2="162.85"/>
+    <line class="e" x1="155.39" y1="55.94" x2="82.05" y2="90.75"/>
+    <line class="e" x1="313.27" y1="19.89" x2="386.61" y2="54.7"/>
+    <line class="e" x1="459.95" y1="90.75" x2="523.35" y2="162.85"/>
+    <line class="e" x1="386.61" y1="55.94" x2="459.95" y2="90.75"/>
+  </g>
+  <g>
+    <circle class="f" cx="522.73" cy="163.16" r="19.27"/>
+    <g>
+      <circle class="g" cx="459.33" cy="235.26" r="19.27"/>
+      <g>
+        <circle class="g" cx="385.99" cy="270.69" r="19.27"/>
+        <circle class="g" cx="385.99" cy="199.83" r="19.27"/>
+      </g>
+    </g>
+    <g>
+      <circle class="h" cx="459.33" cy="91.06" r="19.27"/>
+      <g>
+        <circle class="h" cx="385.99" cy="55.63" r="19.27"/>
+        <circle class="g" cx="385.99" cy="126.49" r="19.27"/>
+      </g>
+    </g>
+    <g>
+      <circle class="h" cx="317.62" cy="19.27" r="19.27"/>
+      <circle class="g" cx="317.62" cy="90.13" r="19.27"/>
+    </g>
+    <g class="i">
+      <circle class="g" cx="313.89" cy="165.02" r="19.27"/>
+    </g>
+    <circle class="j" cx="19.27" cy="163.16" r="19.27"/>
+    <g>
+      <circle class="g" cx="82.67" cy="235.26" r="19.27"/>
+      <g>
+        <circle class="g" cx="156.01" cy="270.69" r="19.27"/>
+        <circle class="g" cx="156.01" cy="199.83" r="19.27"/>
+      </g>
+    </g>
+    <g>
+      <circle class="h" cx="82.67" cy="91.06" r="19.27"/>
+      <g>
+        <circle class="h" cx="156.01" cy="55.63" r="19.27"/>
+        <circle class="g" cx="156.01" cy="126.49" r="19.27"/>
+      </g>
+    </g>
+  </g>
+</svg>
