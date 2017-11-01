@@ -9,8 +9,7 @@ of requests needed. Results by default are saved to a json file.
 
 **Average path length:** ```3.48``` Links
 
-TODO:
-Get all results from each item and check all connections for overlaps.
+<hr>
 
 #### Example Output:
 ```bash
