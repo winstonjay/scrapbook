@@ -7,7 +7,7 @@ of requests needed. Results by default are saved to a json file.
 
 ### My Answer:
 
-**Average path length:** ```3.48`` Links
+**Average path length:** ```3.48``` Links
 
 TODO:
 Get all results from each item and check all connections for overlaps.
