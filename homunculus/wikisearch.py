@@ -15,12 +15,16 @@ TODO:
     bidirectional_search():
     *   General refactoring.
 
+    * sort out query cache thing so its more optional that is dumping massive dicts
+      in a json file.
+
     Have propper look for bugs and actually do some testing. (/work out how to.)
 """
 from collections import deque
 import random
 import requests
 import sys
+import argparse
 
 from jsoncache import jsoncache
 from jsoncache import load_query_cache
@@ -30,6 +34,33 @@ from jsoncache import printf
 
 API_URL = "https://en.wikipedia.org/w/api.php"
 USER_AGENT = "HOMUNCULUS"
+
+
+def main():
+    # Set up argparse with start as a positional arg and end as optional.
+    args = parse_args()
+    # Get start, end values and if to save_cache.
+    start = args.start
+    end   = "Homunculus" if not args.end else args.end
+    save_cache = args.cache if args.cache is not None else True
+    printf("Searching:  '%s' -> '%s'", start, end)
+    # Check if the term has been search for before.
+    data = path_to_homunculus(start, end, save_cache=save_cache)
+    if data:
+        (paths, time_score, request_count) = data
+        # Print the results to the stdout.
+        printf("Paths:")
+        for path in paths:
+            printf("\tSeparation:  %d steps", len(path)-1)
+            printf("\tPath:        %s", " -> ".join(path))
+            printf("...")
+        printf("-"*80)
+        printf("Time Taken:  %f seconds", time_score)
+        printf("requests:    %d", request_count)
+        save_query_cache(query_cache)
+        print("query cache size: " + getSize("querycache.json"))
+    else:
+        printf("Failed Search.")
 
 
 @jsoncache
@@ -52,10 +83,6 @@ def bidirectional_search(start, end, successors):
     # iniital state space.
     if start == end:
         return [[start]]
-    # if end == "Homunculus":
-    #     print("using seeded graph")
-    #     return seeded_bidirectional_search(start, successors)
-
     l_explored, l_front = set(), deque([[start]])
     r_explored, r_front = set(), deque([[end]])
     found_paths = []
@@ -70,11 +97,8 @@ def bidirectional_search(start, end, successors):
                     found_paths.append(path2)
                 else:
                     l_front.append(path2)
-
         # -----------------------------------------------------------
-
         # TODO: Maybe find a effective way to get rid of the code duplication.
-
         # <- Advance backwards from end. ----------------------------
         path = r_front.popleft()
         for state in successors(path[-1],  is_forward=False):
@@ -85,7 +109,6 @@ def bidirectional_search(start, end, successors):
                     found_paths.append(path2)
                 else:
                     r_front.append(path2)
-
         if found_paths:
             return min(found_paths, key=len)
         path_overlap = l_explored & r_explored
@@ -196,12 +219,6 @@ def wiki_request_links(title, is_forward):
     global query_cache
     if title in query_cache and query_cache[title]["fwd"] == is_forward:
         return query_cache[title]
-
-    # path_to_homunculus.requests += 1
-    # if path_to_homunculus.requests >= 150: # Maybe be this should be optional but I dunno.
-    #     printf("Cancelling search: Request Limit Reached! n=%d.",
-    #            path_to_homunculus.requests)
-    #     sys.exit(0)
     params = (left_params if is_forward else right_params)
     params["titles"] = title
     result = {}
@@ -270,9 +287,7 @@ headers = {
 
 query_cache = load_query_cache()
 
-if __name__ == '__main__':
-    import argparse
-
+def parse_args():
     # Set up argparse with start as a positional arg and end as optional.
     parser = argparse.ArgumentParser()
     s_help = "Title of valid wiki page to start from. E.g.'Santa Claus'"
@@ -281,30 +296,9 @@ if __name__ == '__main__':
     parser.add_argument("start", help=s_help, type=str)
     parser.add_argument("-e", "--end", help=e_help, type=str)
     parser.add_argument("-c", "--cache", help=c_help, type=bool)
-    args = parser.parse_args()
+    return parser.parse_args()
 
-    # Get start, end values and if to save_cache.
-    start = args.start
-    end   = "Homunculus" if not args.end else args.end
-    save_cache = args.cache if args.cache is not None else True
 
-    printf("Searching:  '%s' -> '%s'", start, end)
-    # Check if the term has been search for before.
-    data = path_to_homunculus(start, end, save_cache=save_cache)
-    if data:
-        (paths, time_score, request_count) = data
-        # Print the results to the stdout.
-        printf("Paths:")
-        for path in paths:
-            printf("\tSeparation:  %d steps", len(path)-1)
-            printf("\tPath:        %s", " -> ".join(path))
-            printf("...")
-        printf("-"*80)
-        printf("Time Taken:  %f seconds", time_score)
-        printf("requests:    %d", request_count)
-        save_query_cache(query_cache)
-        print("query cache size: " + getSize("querycache.json"))
-    else:
-        printf("Failed Search.")
-        sys.exit(0)
+if __name__ == '__main__':
+    main()
 

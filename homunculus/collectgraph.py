@@ -1,6 +1,23 @@
+'''
+collectGraph.py:
+
+USE:
+    Make bulk seraches from a list of pages to find.
+    Either use top 50 list or random sample funciton.
+'''
 from jsoncache import *
 from wikisearch import path_to_homunculus, query_cache
-import wikipedia
+try:
+    import wikipedia
+except:
+    print("Warning: wikipedia module not install random sample function will not work.")
+
+
+def main():
+    # search = wikipedia.random(100)
+    search = top50
+    collect_graph(search)
+
 
 # Top 50 wikipedia pages 8/10/2017 (only includes pages that are numbered.)
 # https://en.wikipedia.org/wiki/Wikipedia:Multiyear_ranking_of_most_viewed_pages
@@ -84,8 +101,6 @@ def collect_graph(search):
 
 
 if __name__ == '__main__':
-    # search = wikipedia.random(100)
-    search = top50
-    collect_graph(search)
+    main()
 
 

@@ -67,8 +67,11 @@ def printf(string, *args):
 
 
 def load_query_cache():
-    with open("querycache.json") as qc:
-         return json.load(qc)
+    try:
+        with open("querycache.json") as qc:
+            return json.load(qc)
+    except:
+        return {}
 
 def save_query_cache(data):
     with open("querycache.json",  mode='w') as qc:
