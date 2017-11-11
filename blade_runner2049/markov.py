@@ -13,7 +13,7 @@ class MarkovNgramModel(dict):
                 self[key] = [value]
         self.K = N - 1
         self.starts = [s.split() for s in self.keys() if '<s>' in s]
-        self.keys = [k for k in self]
+        # self.keys = [k for k in self]
 
     def generate_sequence(self, est_len=20):
         """Generate a sequence of words and punctuation to emulate a sentence
@@ -28,7 +28,7 @@ class MarkovNgramModel(dict):
     def next_word(self, prev):
         """return a weighted choice of word based on the previous n words,
         if previous n words does not exist in ngram table return any random word."""
-        next_possible = self.get(prev, random.choice(self.keys))
+        next_possible = self.get(prev, random.choice(self.keys()))
         return weighted_choice(*zip(*next_possible))
 
     def post_format(self, sentence):
