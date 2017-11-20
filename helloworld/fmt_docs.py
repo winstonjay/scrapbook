@@ -9,7 +9,7 @@ def extract_docs(filename):
                 printf("%s (%s):", lang, filename)
             if '$' in line:
                 run_cmd = line[2:].strip()
-                printf("\n`%s`\n", run_cmd)
+                printf("\n\t%s\n", run_cmd)
 
 
 def printf(string, *args): print(string % args)
