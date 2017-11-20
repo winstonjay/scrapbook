@@ -1,23 +1,36 @@
 # Hello, World
-
 ## Running Each file type.
 
 
 C (hello.c):
 
-	$ gcc -o bin/hello_c hello.c && ./bin/hello_c
+	$ gcc -o bin/hello_c hello.c
+
+
+	$ ./bin/hello_c
 
 C++ (hello.cc):
 
-	$ g++ -o bin/hello_cc hello.cc && ./bin/hello_cc
+	$ g++ -o bin/hello_cc hello.cc
 
+
+	$ ./bin/hello_cc
+
+C# (hello.cs):
+
+	$ ...?
+
+"Hello World!" (hello.cs):
 Go (hello.go):
 
 	$ go run hello.go
 
 Java (hello.java):
 
-	$ javac hello.java && java hello
+	$ javac hello.java
+
+
+	$ java hello
 
 Julia (hello.jl):
 
@@ -26,6 +39,10 @@ Julia (hello.jl):
 JavaScript (hello.js):
 
 	$ node hello.js
+
+Objective-C (hello.m):
+
+	$ gcc -framework Foundation hello.m -o bin/hello_objc
 
 PHP (hello.php):
 
@@ -45,7 +62,14 @@ Ruby (hello.rb):
 
 Rust (hello.rs):
 
-	$ rustc hello.rs --crate-name bin/hello_rs && ./hello_rs
+	$ rustc hello.rs --crate-name bin/hello_rs
+
+
+	$ ./hello_rs
+
+Bash (hello.sh):
+
+	$ bash hello.sh
 
 Swift (hello.swift):
 
