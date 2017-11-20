@@ -6,10 +6,10 @@ def extract_docs(filename):
         for line in fn.readlines():
             if 'Hello World' in line:
                 lang = line[line.find("(")+1:line.find(")")].strip()
-                printf("%s (%s)", lang, filename)
+                printf("%s (%s):", lang, filename)
             if '$' in line:
                 run_cmd = line[2:].strip()
-                printf("\t %s", run_cmd)
+                printf("\n`%s`\n", run_cmd)
 
 
 def printf(string, *args): print(string % args)
