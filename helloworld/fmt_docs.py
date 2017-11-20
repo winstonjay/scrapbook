@@ -6,7 +6,7 @@ def extract_docs(filename):
         for line in fn.readlines():
             if 'Hello World' in line:
                 lang = line[line.find("(")+1:line.find(")")].strip()
-                printf("#### %s (%s)", lang, filename)
+                printf("%s (%s)", lang, filename)
             if '$' in line:
                 run_cmd = line[2:].strip()
                 printf("\t %s", run_cmd)
@@ -22,7 +22,7 @@ def main():
 
 
 if __name__ == '__main__':
-    print("""# Hello World!
+    print("""# Hello, World
 
 ## Running Each file type.
 
