@@ -13,10 +13,11 @@ def extract_docs(filename):
         for line in fn.readlines():
             if 'Hello World' in line:
                 lang = line[line.find("(")+1:line.find(")")].strip()
-                print("%s (%s):" % (lang, filename))
+                print("%s (%s):\n" % (lang, filename))
             if '$' in line:
                 run_cmd = line[2:].strip()
-                print("\n\t%s\n" % run_cmd)
+                print("\t%s\n" % run_cmd)
+            print()
 
 pagehead = """# Hello, World
 ## Running Each file type.

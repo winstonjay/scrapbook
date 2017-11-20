@@ -2,80 +2,181 @@
 ## Running Each file type.
 
 
+()
 C (hello.c):
 
+()
 	$ gcc -o bin/hello_c hello.c
 
-
+()
 	$ ./bin/hello_c
 
+()
+()
+()
+()
+()
 C++ (hello.cc):
 
+()
 	$ g++ -o bin/hello_cc hello.cc
 
-
+()
 	$ ./bin/hello_cc
 
+()
+()
+()
+()
 C# (hello.cs):
 
+()
 	$ ...?
 
-"Hello World!" (hello.cs):
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
 Go (hello.go):
 
+()
 	$ go run hello.go
 
+()
+()
+()
+()
 Java (hello.java):
 
+()
 	$ javac hello.java
 
-
+()
 	$ java hello
 
+()
+()
+()
+()
+()
+()
 Julia (hello.jl):
 
+()
 	$ julia hello.jl
 
+()
+()
+()
 JavaScript (hello.js):
 
+()
 	$ node hello.js
 
+()
+()
+()
 Objective-C (hello.m):
 
+()
 	$ gcc -framework Foundation hello.m -o bin/hello_objc
 
+()
+()
+()
+()
+()
+()
+()
 PHP (hello.php):
 
+()
 	$ php hello.php
 
+()
+()
+()
+()
+()
 Perl (hello.pl):
 
+()
 	$ perl hello.pl
 
+()
+()
+()
 Python (hello.py):
 
+()
 	$ python hello.py
 
+()
+()
+()
 Ruby (hello.rb):
 
+()
 	$ ruby hello.rb
 
+()
+()
 Rust (hello.rs):
 
+()
 	$ rustc hello.rs --crate-name bin/hello_rs
 
-
+()
 	$ ./hello_rs
 
+()
+()
+()
+()
 Bash (hello.sh):
 
+()
 	$ bash hello.sh
 
+()
+()
 Swift (hello.swift):
 
+()
 	$ swift hello.swift
 
+()
+()
+()
 Arm Assembly (hello_arm.s):
 
+()
 	$ TODO
 
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
+()
