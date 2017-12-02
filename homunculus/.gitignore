@@ -1,7 +1,0 @@
-querycache.json
-history.json
-*.py
-!wikisearch.py
-!jsoncache.py
-!collectgraph.py
-!collectHomo.py
