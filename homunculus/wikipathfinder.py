@@ -1,3 +1,4 @@
+from __future__ import print_function
 from collections import deque
 from functools import update_wrapper
 from datetime import datetime
@@ -30,8 +31,7 @@ def memoize(f):
 
 class WikiPathFinder(object):
 
-    def __init__(self, use_history=True, print_requests=False):
-        self.use_history = use_history
+    def __init__(self, print_requests=False):
         self.print_requests = print_requests
         self.start, self.end = None, None
         self.path = []
@@ -56,7 +56,6 @@ class WikiPathFinder(object):
         print("Found Path:")
         print("\tSeparation:  %d steps" % (len(self.path)-1))
         print("\tPath:        %s" % " -> ".join(self.path))
-        print("\tUsing cache: %r" % self.use_history)
         print("\tTime Taken:  %f seconds" % self.time)
         print("\tRequests:    %d" % self.requests)
         print("-"*80)

@@ -4,9 +4,9 @@ import os
 def main():
     "Loop through directory and print out documentation for each file type."
     print(pagehead)
-    for filename in os.listdir('.'):
+    for filename in os.listdir('src'):
         if filename.startswith('hello'):
-            extract_docs(filename)
+            extract_docs('src/%s' % filename)
 
 def extract_docs(filename):
     with open(filename, 'r') as fn:
@@ -20,7 +20,8 @@ def extract_docs(filename):
         print("")
 
 pagehead = """# Hello, World
-## Running Each file type.
+## Running Each file type Mac OSX
+(Obviously you have to have them all installed.)
 
 """
 

@@ -1,3 +1,4 @@
+from __future__ import print_function
 import argparse
 import csv
 from wikipathfinder import *
@@ -19,9 +20,7 @@ def main():
             print("Searching:  '%s' -> '%s'" % (page, center))
             wpf.find_path(page, center)
             wpf.print_stats()
-            # results[page+'->'+center] = wpf.data()
             cs.writerow(wpf.data())
-        # json.dump(results, outfile)
 
 def load_sample(filename, n):
     with open(filename, mode='r') as sample:
