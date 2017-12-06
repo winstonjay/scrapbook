@@ -1,96 +1,4 @@
 # Hello, World
-## Running Each file type.
-
-
-C (hello.c):
-
-	$ gcc -o bin/hello_c hello.c
-
-	$ ./bin/hello_c
-
-
-C++ (hello.cc):
-
-	$ g++ -o bin/hello_cc hello.cc
-
-	$ ./bin/hello_cc
-
-
-C# (hello.cs):
-
-	$ ...?
-
-
-Go (hello.go):
-
-	$ go run hello.go
-
-
-Java (hello.java):
-
-	$ javac hello.java
-
-	$ java hello
-
-
-Julia (hello.jl):
-
-	$ julia hello.jl
-
-
-JavaScript (hello.js):
-
-	$ node hello.js
-
-
-Objective-C (hello.m):
-
-	$ gcc -framework Foundation hello.m -o bin/hello_objc
-
-
-PHP (hello.php):
-
-	$ php hello.php
-
-
-Perl (hello.pl):
-
-	$ perl hello.pl
-
-
-Python (hello.py):
-
-	$ python hello.py
-
-
-Ruby (hello.rb):
-
-	$ ruby hello.rb
-
-
-Rust (hello.rs):
-
-	$ rustc hello.rs --crate-name bin/hello_rs
-
-	$ ./hello_rs
-
-
-Bash (hello.sh):
-
-	$ bash hello.sh
-
-
-Swift (hello.swift):
-
-	$ swift hello.swift
-
-
-Arm Assembly (hello_arm.s):
-
-	$ TODO
-
-
-# Hello, World
 ## Running Each file type Mac OSX
 (Obviously you have to have them all installed.)
 
@@ -114,12 +22,12 @@ C# (src/hello.cs):
 	$ ...?
 
 
-Elixir (src/hello.exs):
+Elixir http://elixir-lang.github.io/ (src/hello.exs):
 
 	$ elixir hello.exs
 
 
-Go (src/hello.go):
+Go https://golang.org/ (src/hello.go):
 
 	$ go run hello.go
 
@@ -131,7 +39,7 @@ Java (src/hello.java):
 	$ java hello
 
 
-Julia (src/hello.jl):
+Julia https://julialang.org/ (src/hello.jl):
 
 	$ julia hello.jl
 
@@ -146,7 +54,7 @@ Objective-C (src/hello.m):
 	$ gcc -framework Foundation hello.m -o bin/hello_objc
 
 
-PHP (src/hello.php):
+PHP http://www.php.net/ (src/hello.php):
 
 	$ php hello.php
 
@@ -166,7 +74,7 @@ Ruby https://www.ruby-lang.org/ (src/hello.rb):
 	$ ruby hello.rb
 
 
-Rust (src/hello.rs):
+Rust https://www.rust-lang.org/ (src/hello.rs):
 
 	$ rustc hello.rs --crate-name bin/hello_rs
 
@@ -178,7 +86,7 @@ Bash (src/hello.sh):
 	$ bash hello.sh
 
 
-Swift (src/hello.swift):
+Swift https://developer.apple.com/swift/ (src/hello.swift):
 
 	$ swift hello.swift
 
