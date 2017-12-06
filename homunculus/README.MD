@@ -11,13 +11,15 @@ shortest path between the two as it uses a bi-directional search instead of brea
             Requests:    19
     --------------------------------------------------------------------------------
 
-### Usage:
+## Usage:
 
 **Requirements:** `requests` is needed to do the internets stuff.
 
     $ pip install requests
 
-**findwikipath.py** will find a path between two wikipedia articles. See command line arg details below.
+### findwikipath.py:
+
+Use to find a path between two wikipedia articles. See command line arg details below.
 
     usage: findwikipath.py [-h] [-e END] start
 
@@ -28,7 +30,9 @@ shortest path between the two as it uses a bi-directional search instead of brea
     -h, --help         show this help message and exit
     -e END, --end END  Title of valid wiki page to end on default is 'Homunclus'
 
-**collectwikibatch.py** will collect a random sample of paths to a given article page. It gets faster as it goes because it memoizes the links of the pages that it has already visited reducing api calls. Because of this, it might not be recomended to collect too large a sample. For more info See command line arg details below. [default sampler](https://www.mediawiki.org/wiki/API:Random)
+### collectwikibatch.py
+
+`collectwikibatch.py` will collect a random sample of paths to a given article page. It gets faster as it goes because it memoizes the links of the pages that it has already visited reducing api calls. Because of this, it might not be recomended to collect too large a sample. For more info See command line arg details below. [default sampler](https://www.mediawiki.org/wiki/API:Random)
 
     usage: collectwikibatch.py [-h] [-x CENTER] [-s SET] [-n NUMBER] outfile
 
