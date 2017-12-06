@@ -6,12 +6,11 @@ def main():
     parser = construct_parser()
     args = parser.parse_args()
     start = args.start
-    end = "Homunculus" if not args.end else args.end
-    use_history = args.cache if args.cache is not None else True
+    end = args.end or "Homunculus"
     print("Searching:  '%s' -> '%s'" % (start, end))
-    pathfinder = WikiPathFinder(use_history=use_history)
-    data = pathfinder.find_path(start, end)
-    if data:
+    pathfinder = WikiPathFinder()
+    # returns path or empty list.
+    if pathfinder.find_path(start, end):
         pathfinder.print_stats()
     else:
         print("Failed Search.")
@@ -21,10 +20,8 @@ def construct_parser():
     parser = argparse.ArgumentParser()
     s_help = "Title of valid wiki page to start from. E.g.'Santa Claus'"
     e_help = "Title of valid wiki page to end on default is 'Homunclus'"
-    c_help = "Set to false to disable caching results."
     parser.add_argument("start", help=s_help, type=str)
     parser.add_argument("-e", "--end", help=e_help, type=str)
-    parser.add_argument("-c", "--cache", help=c_help, type=bool)
     return parser
 
 if __name__ == '__main__':

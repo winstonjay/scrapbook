@@ -1,42 +1,23 @@
 from __future__ import print_function
-from collections import deque
-from functools import update_wrapper
-from datetime import datetime
-import random
 
+from collections import deque
+from datetime import datetime
+
+import random
 import requests
 
+from memo import memoize
 
-def decorator(d):
-    "Make function d a decorator: d wraps a function fn."
-    def _d(fn):
-        return update_wrapper(d(fn), fn)
-    update_wrapper(_d, d)
-    return _d
-
-@decorator
-def memoize(f):
-    "Cache results of already run paths to reduce requests to wikipedia."
-    cache = {}
-    def _f(*args):
-        try:
-            res = cache[args[1:]]
-            print("cache:", args[1:])
-            return res
-        except KeyError:
-            cache[args[1:]] = result = list(f(*args))
-            return result
-        raise ValueError
-    return _f
 
 class WikiPathFinder(object):
-
+    '''WikiPathFinder...'''
     def __init__(self, print_requests=False):
         self.print_requests = print_requests
         self.start, self.end = None, None
         self.path = []
 
     def find_path(self, start, end):
+        "Find a valid path between 2 wikipedia articles."
         self.start, self.end = start, end
         self.requests = 0
         self.requests_fwd, self.requests_bwk = 0, 0
@@ -173,5 +154,4 @@ left_params.update(default)
 right_params = {"prop": "linkshere", "lhnamespace": 0,
                 "lhlimit": "max", "lhprop": "title"}
 right_params.update(default)
-
 

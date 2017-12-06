@@ -30,9 +30,10 @@ def construct_parser():
     parser = argparse.ArgumentParser()
     f_help = "file to save the results."
     c_help = """Title of valid wiki page to center all nodes from. E.g.'Santa Claus',\
-                default is Homunculus"""
+                default is set to 'Homunculus'"""
     n_help = "Sample size to collect. default is set to 50."
-    s_help = "Sample Set to collect, default is a random sample from wikimedia api."
+    s_help = """Sample Set to collect, default is a random sample from wikimedia api.
+Alternatively specify a filename containing a list."""
     parser.add_argument("outfile", help=f_help, type=str)
     parser.add_argument("-x", "--center", help=c_help, type=str)
     parser.add_argument("-s", "--set", help=s_help, type=str)
