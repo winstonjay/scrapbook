@@ -24,7 +24,6 @@ Using trigrams the following was generated.
 * there are people out there who deeply appreciate story like this, and audibly.
 * put to sleep. overhyped.
 * dull dull, far too long, this movie was loud, slow and i couldn't follow plot
-* very boring! effects were gorgeous -- such pretty film. yes the visuals are stunning the acting is great.
 * espectacular, solo fans sci-fy calidad, excelente trabajo director villeneuve productor maestro ridley scott
 * keeps the feel style and universe of blade runner 2049. blade runner was in themovie with them.
 * visually stunning. if you have not seen this movie. not only long as heck but absolutely terrible.
