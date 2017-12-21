@@ -13,6 +13,7 @@ class MarkovNgramModel(dict):
                 self[key] = [value]
         self.K = N - 1
         self.starts = [s.split() for s in self.keys() if '<s>' in s]
+        print(self.starts)
         # self.keys = [k for k in self]
 
     def generate_sequence(self, est_len=20):
@@ -61,5 +62,5 @@ def weighted_choice(choices, weights):
 if __name__ == '__main__':
     ngram_freqs = load_counts("data/all3.txt")
     mark =  MarkovNgramModel(ngram_freqs)
-    for x in range(20):
+    for x in range(10):
         print("\t* {}".format(mark.generate_sequence(10)))

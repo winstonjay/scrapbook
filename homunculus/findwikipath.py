@@ -10,8 +10,9 @@ def main():
     print("Searching:  '%s' -> '%s'" % (start, end))
     pathfinder = WikiPathFinder()
     # returns path or empty list.
-    if pathfinder.find_path(start, end):
-        pathfinder.print_stats()
+    path = pathfinder.find_path(start, end)
+    if path:
+        path.print_stats()
     else:
         print("Failed Search.")
 

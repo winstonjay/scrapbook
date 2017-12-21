@@ -9,37 +9,49 @@ import requests
 from memo import memoize
 
 
-class WikiPathFinder(object):
-    '''WikiPathFinder...'''
-    def __init__(self, print_requests=False):
-        self.print_requests = print_requests
-        self.start, self.end = None, None
-        self.path = []
+class Path(object):
 
-    def find_path(self, start, end):
-        "Find a valid path between 2 wikipedia articles."
-        self.start, self.end = start, end
-        self.requests = 0
-        self.requests_fwd, self.requests_bwk = 0, 0
-        t1 = datetime.now()
-        self.path = self._bidirectional_search(start, end, self.wiki_links)
-        self.time = (datetime.now() - t1).total_seconds()
-        return self.path
+    def __init__(self, start, end, path=[], time=None, requests=None):
+        self.start = start
+        self.end = end
+        self.path = path
+        self.degree = len(self.path) - 1
+        self.time = time
+        self.requests = requests
+
+    def __nonzero__(self):
+        return bool(self.path)
 
     def data(self):
+        "return output as a dict."
         return dict(start=self.start,
                     end=self.end,
                     path="->".join(self.path),
-                    degree=len(self.path)-1)
+                    degree=self.degree)
 
     def print_stats(self):
-        # Print the results to the stdout.
+        "Print the results to the stdout."
         print("Found Path:")
-        print("\tSeparation:  %d steps" % (len(self.path)-1))
         print("\tPath:        %s" % " -> ".join(self.path))
+        print("\tSeparation:  %d steps" % (self.degree))
         print("\tTime Taken:  %f seconds" % self.time)
         print("\tRequests:    %d" % self.requests)
         print("-"*80)
+
+
+class WikiPathFinder(object):
+    '''WikiPathFinder...'''
+    def __init__(self, print_requests=True):
+        self.print_requests = print_requests
+
+    def find_path(self, start, end):
+        "Find a valid path between 2 wikipedia articles."
+        self.requests_fwd, self.requests_bwk = 0, 0
+        t1 = datetime.now()
+        return Path(start=start, end=end,
+                    path=self._bidirectional_search(start, end, self.wiki_links),
+                    time=(datetime.now() - t1).total_seconds(),
+                    requests=self.requests_fwd + self.requests_bwk)
 
     def _bidirectional_search(self, start, end, successors):
         """bidirectional_search(start, end, successors): Do a Breath-First-Search
@@ -49,6 +61,7 @@ class WikiPathFinder(object):
             return [start]
         l_explored, l_front = set(), deque([[start]])
         r_explored, r_front = set(), deque([[end]])
+        found_paths = []
         while l_front and r_front:
             # -> Advance forwards from start.
             if self.requests_fwd < self.requests_bwk and l_front:
@@ -58,9 +71,9 @@ class WikiPathFinder(object):
                         l_explored.add(state)
                         path2 = path + [state]
                         if state == end:
-                            return path2
+                            found_paths.append(path2)
                         elif state in r_explored:
-                            return self._merge_paths(path2, r_front)
+                            found_paths.append(self._merge_paths(path2, r_front))
                         else:
                             l_front.append(path2)
             else:
@@ -71,12 +84,17 @@ class WikiPathFinder(object):
                         r_explored.add(state)
                         path2 = path + [state]
                         if state == start:
-                            return path2
+                            found_paths.append(path2)
                         elif state in l_explored:
                             # reverse the result so its the right way round.
-                            return self._merge_paths(path2, l_front)[::-1]
+                            found_paths.append(self._merge_paths(path2, l_front)[::-1])
                         else:
                             r_front.append(path2)
+            # we waited till we have done a full loop through the
+            # results of these requests so we can find the shortest
+            # possible in the data we have recieved.
+            if found_paths:
+                return min(found_paths, key=len)
         return []
 
     def _merge_paths(self, path, frontier):
@@ -101,7 +119,8 @@ class WikiPathFinder(object):
             # shuffle to stop the results being completely aphabetical.
             random.shuffle(links)
             # emit the links gathered.
-            for link in links: yield link
+            for link in links:
+                yield link
 
     def _query(self, request):
         # Code from advice on wikimedia api.
@@ -109,7 +128,6 @@ class WikiPathFinder(object):
         while True:
             # Clone original request
             req = request.copy()
-            self.requests += 1
             if request["prop"] == 'links':
                 self.requests_fwd += 1
             else:

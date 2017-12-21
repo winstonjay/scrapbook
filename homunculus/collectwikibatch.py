@@ -1,6 +1,7 @@
 from __future__ import print_function
 import argparse
 import csv
+from datetime import datetime
 from wikipathfinder import *
 
 
@@ -11,16 +12,21 @@ def main():
     center = args.center or 'Homunculus'
     sample = (load_sample(args.set, size) if args.set else
               wiki_random_sample(size))
-    wpf = WikiPathFinder(use_history=True, print_requests=True)
+    wpf = WikiPathFinder(print_requests=True)
     results = {"start", "end", "path"}
+    ttime = datetime.now()
+    treqs = 0
     with open(args.outfile, mode='w') as outfile:
-        cs = csv.DictWriter(outfile, wpf.data().keys())
+        cs = csv.DictWriter(outfile, ["start", "end", "path", "degree"])
         cs.writeheader()
         for page in sample:
             print("Searching:  '%s' -> '%s'" % (page, center))
-            wpf.find_path(page, center)
-            wpf.print_stats()
-            cs.writerow(wpf.data())
+            path = wpf.find_path(page, center)
+            path.print_stats()
+            cs.writerow(path.data())
+            treqs += path.requests
+    ttime = (datetime.now() - ttime).total_seconds()
+    print("Finished Totals:\nN={}. Time={}. Requests={}.".format(size, ttime, treqs))
 
 def load_sample(filename, n):
     with open(filename, mode='r') as sample:
