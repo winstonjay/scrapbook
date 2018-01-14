@@ -1,8 +1,11 @@
-Code from mini projects experiments etc...
+*Code from mini projects experiments etc...*
 
-## Directories:
+## Fun Folders
 
-* `blade_runner2049/` Blade Runner 2049 Movie Review Generator.
-* `idiots_geniuses/` Idiots & Geniuses: Twitter Data Collection.
-* `helloworld/` Hello World in Various Languages.
-* `homunculus/` Path Lengths between wikipedia pages.
+| Folder | Whats that? |
+| ---|---|
+| **homunclulus** | Finds degrees of seperation and paths between wikipedia articles default end node is the article on homunculi. |
+| **tired_keyboard** | Collecting an investigating data from a tired keyboard matt to learn about language use and computer interfacing |
+| **blade_runner2049** | Blade Runner 2049 Rotten Tomatto movie review generator with markov chains. |
+| **idots_geniuses** | Twitter streaming: count word frequencies in relation to user handles. |
+| **helloworld** | Running hello world in a collection of languages |
