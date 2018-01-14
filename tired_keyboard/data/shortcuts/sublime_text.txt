@@ -1,0 +1,56 @@
+⌘X	Cut line
+⌘↩	Insert line after
+⌘⇧↩	Insert line before
+⌘⌃↑	Move line/selection up
+⌘⌃↓	Move line/selection down
+⌘L	Select line - Repeat to select next lines
+⌘D	Select word - Repeat to select next occurrence
+⌃⌘G	Select all occurrences of current selection
+⌃⇧↑	Extra cursor on the line above
+⌃⇧↓	Extra cursor on the line below
+⌃M	Jump to closing parentheses Repeat to jump to opening parentheses
+⌃⇧M	Select all contents of the current parentheses
+⌃A	Move to beginning of line
+⌘Left	Move to beginning of text on line
+⌘K⌫	Delete from cursor to start of line
+⌘]	Indent current line(s)
+⌘[	Un-indent current line(s)
+⌘⇧D	Duplicate line(s)
+⌘J	Join line below to the end of the current line
+⌘/	Comment/un-comment current line
+⌘⌥/	Block comment current selection
+⌘Y	Redo, or repeat last keyboard shortcut command
+⌘⇧V	Paste and indent correctly
+⌃Space	Select next auto-complete suggestion
+⌃U	Soft undo; jumps to your last change before undoing change when repeated
+⌃⇧Up	Column selection up
+⌃⇧Down	Column selection down
+⌃⇧W	Wrap Selection in html tag
+⌃⇧K	Delete current line of cursor
+
+
+⌘P or ⌘T	Quick-open files by name
+⌘R	Goto symbol
+⌃G	Goto line in current file
+
+⌘⇧P	Command Palette
+⌃`	Python Console
+⌃⌘F	    Toggle fullscreen mode
+⌃⇧⌘F	Toggle distraction-free mode
+⌃⇧P	Show scope in status bar
+
+⌘F	Find
+⌘⌥F	Replace
+⌘⇧F	Find in files
+⌘I	Incremental Find
+
+⌃V	Scroll down one page
+⌃L	Center current line vertically in page
+⌘Down	Scroll to end of file
+⌘Up	Scroll to start of file
+
+⌘⇧t	Open last closed tab
+⌘0	Jump to 10th tab in current group
+⌘⇧[	Cycle left through tabs
+⌘⇧]	Cycle right through tabs
+^Tab	Cycle up through recent tabs
