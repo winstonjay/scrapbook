@@ -3,7 +3,7 @@
 '''
 wikigraph.py:
 Implements classes for finding paths between wikipedia articles
-and other related functions.
+and other related functions using the WikiMedia API.
 
 The `WikiGraph.find_path` method is better run in a shell
 session or in a batch collection as its use of memoization will
