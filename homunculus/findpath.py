@@ -1,20 +1,24 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+'''
+findpath.py:
+Find a single path between two wikipedia articles and
+output information about it to the stdout.
+Set --help or -h flag for more info on cmd-line args.
+eg: python findpath.py --help
+'''
 from __future__ import print_function
 import argparse
-from wikipathfinder import *
+from wikigraph import *
 
 def main():
     parser = construct_parser()
     args = parser.parse_args()
-    start = args.start
-    end = args.end or "Homunculus"
+    start, end = args.start, args.end or "Homunculus"
+    wiki_graph = WikiGraph()
     print("Searching:  '%s' -> '%s'" % (start, end))
-    pathfinder = WikiPathFinder()
-    # returns path or empty list.
-    path = pathfinder.find_path(start, end)
-    if path:
-        path.print_stats()
-    else:
-        print("Failed Search.")
+    path = wiki_graph.find_path(start, end)
+    print(path.print_stats() if path else "Failed Search.")
 
 def construct_parser():
     # Set up argparse with start as a positional arg and end as optional.
