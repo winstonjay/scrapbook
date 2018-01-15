@@ -49,12 +49,14 @@ right_params.update(default)
 
 
 class WikiGraph(object):
-    '''WikiGraph implements methods for connecting to the WikiMedia API
+    '''
+    WikiGraph implements methods for connecting to the WikiMedia API
     orientated to finding paths between articles and information between
     nodes. Public methods are: `find_path`, `indegree` and `random_sample`.
     When using with find_path it is better use in a session or in a batch
     collection as memoization means it will speed up searches and reduce
-    requests to the Wikimedia API.'''
+    requests to the Wikimedia API.
+    '''
     def __init__(self, print_requests=False):
         self.print_requests = print_requests
         self.requests_fwd = 0
@@ -193,9 +195,11 @@ class WikiGraph(object):
 
 
 class Path(object):
-    '''Path is returned by the WikiGraph.find_path method. It stores
+    '''
+    Path is returned by the WikiGraph.find_path method. It stores
     the state of the path whilst implementing methods for displaying
-    and returning its data.'''
+    and returning its data.
+    '''
     def __init__(self, start, end, path=[], time=None, requests=None):
         self.start = start
         self.end = end
