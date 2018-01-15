@@ -56,11 +56,14 @@ class WikiGraph(object):
     requests to the Wikimedia API.'''
     def __init__(self, print_requests=False):
         self.print_requests = print_requests
+        self.requests_fwd = 0
+        self.requests_bwk = 0
 
     def find_path(self, start, end):
         '''Find a valid path between 2 wikipedia articles
         and return a Path object.'''
-        self.requests_fwd, self.requests_bwk = 0, 0
+        self.requests_fwd = 0
+        self.requests_bwk = 0
         t1 = datetime.now()
         return Path(start=start, end=end,
                     path=self._bidirectional_search(start, end, self.wiki_links),
@@ -69,7 +72,7 @@ class WikiGraph(object):
 
     def indegree(self, title):
         "return the number of links to a given article."
-        return len(self.wiki_links(title, True))
+        return len(self.wiki_links(title, False))
 
     def random_sample(self, n=1):
         '''return a n sized list of random page titles.
