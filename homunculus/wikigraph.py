@@ -50,7 +50,7 @@ right_params.update(default)
 class WikiGraph(object):
     '''WikiGraph implements methods for connecting to the WikiMedia API
     orientated to finding paths between articles and information between
-    nodes. Its public methods are find_path, indegree and random_sample.
+    nodes. Public methods are: `find_path`, `indegree` and `random_sample`.
     When using with find_path it is better use in a session or in a batch
     collection as memoization means it will speed up searches and reduce
     requests to the Wikimedia API.'''
@@ -60,7 +60,7 @@ class WikiGraph(object):
         self.requests_bwk = 0
 
     def find_path(self, start, end):
-        '''Find a valid path between 2 wikipedia articles
+        '''Find a valid path between 2 given wikipedia articles
         and return a Path object.'''
         self.requests_fwd = 0
         self.requests_bwk = 0
@@ -83,7 +83,7 @@ class WikiGraph(object):
         return [page['title'] for page in request['query']['random']]
 
     def _bidirectional_search(self, start, end, successors):
-        '''Use a unweighted bidirectional search to from paths from start to
+        '''Use a unweighted bidirectional search to form paths from start to
         end args. This works as Breath-First-Search from both start and end nodes
         at the same time balancing traversals by requests made to the api from each
         side. It Keeps track of each sides explored nodes returning the shortest
