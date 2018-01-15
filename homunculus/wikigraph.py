@@ -31,6 +31,7 @@ import requests
 
 from memo import memoize
 
+#### Info for connecting to the api.
 
 API_URL = "https://en.wikipedia.org/w/api.php"
 USER_AGENT = "HOMUNCULUS"
