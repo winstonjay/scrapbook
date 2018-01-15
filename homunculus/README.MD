@@ -21,8 +21,7 @@ speed up searches and reduce requests to the Wikimedia API.
         Requests:    5
     -------------------------------------------------------------
     >>> path.data()
-    {'start': 'Kevin Bacon', 'end': 'Tom Hanks',
-     'path': 'Tom Hanks->Kevin Bacon', 'degree': 1}
+    {'start': 'Kevin Bacon', 'end': 'Tom Hanks', 'path': 'Tom Hanks->Kevin Bacon', 'degree': 1}
 
 ### collectbatch.py
 
