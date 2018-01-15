@@ -5,9 +5,9 @@ wikigraph.py:
 Implements classes for finding paths between wikipedia articles
 and other related functions.
 
-When using with WikiGraph.find_path method it is better use in a
+The `WikiGraph.find_path` method is better run in a shell
 session or in a batch collection as its use of memoization will
-speed up searches and reduce requests to the Wikimedia API.
+speed up searches whilst it runs, reducing requests to the Wikimedia API.
 
 Example session:
     >>> from wikigraph import WikiGraph
