@@ -9,7 +9,7 @@ eg: python findpath.py --help
 '''
 from __future__ import print_function
 import argparse
-from wikigraph import *
+from wikigraph import WikiGraph
 
 def main():
     parser = construct_parser()

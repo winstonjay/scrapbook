@@ -2,8 +2,8 @@
 # -*- coding: utf-8 -*-
 '''
 collectbatch.py:
-For a given sample of start articles find a paths from each to a
-central end article, save the output to a specified csv file.
+For a given sample of start articles find a path from each
+to a central end article. Save the output to a given csv file.
 Set --help or -h flag for more info on cmd-line args.
 eg: python collectbatch.py --help.
 '''
@@ -11,7 +11,7 @@ from __future__ import print_function
 import argparse
 import csv
 from datetime import datetime
-from wikigraph import *
+from wikigraph import WikiGraph
 
 
 def main():
