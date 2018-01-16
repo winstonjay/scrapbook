@@ -5,7 +5,7 @@ Barack Obama,Homunculus,Barack Obama->Nikita Khrushchev->Heredity->Homunculus,3
 India,Homunculus,India->Republic->Heredity->Homunculus,3
 World War II,Homunculus,World War II->British Empire->John Dee->Homunculus,3
 Michael Jackson,Homunculus,Michael Jackson->Off the Wall->Enlightenment (spiritual)->Homunculus,3
-Sex,Homunculus,Sex->DNA->Heredity->Homunculus,3
+Sex,Homunculus,Sex->Sperm->Homunculus,2
 United Kingdom,Homunculus,United Kingdom->British Empire->John Dee->Homunculus,3
 Lady Gaga,Homunculus,Lady Gaga->Rajneesh->Enlightenment (spiritual)->Homunculus,3
 Eminem,Homunculus,Eminem->Bipolar disorder->Cerebral cortex->Homunculus,3
@@ -46,6 +46,6 @@ France,Homunculus,France->British Empire->John Dee->Homunculus,3
 Kanye West,Homunculus,Kanye West->Meme->Heredity->Homunculus,3
 Russia,Homunculus,Russia->Literary realism->Heredity->Homunculus,3
 Stephen Hawking,Homunculus,Stephen Hawking->Joseph Larmor->Edgar Adrian->Homunculus,3
-Albert Einstein,Homunculus,Homunculus->Edgar Adrian->Albert Einstein,2
+Albert Einstein,Homunculus,Albert Einstein->Edgar Adrian->Homunculus,2
 Earth,Homunculus,Earth->Geocentric model->Superseded scientific theories->Homunculus,3
 Mark Zuckerberg,Homunculus,Mark Zuckerberg->Nikita Khrushchev->Heredity->Homunculus,3

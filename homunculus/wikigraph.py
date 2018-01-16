@@ -20,6 +20,26 @@ Example session:
         Time Taken:  1.498983 seconds
         Requests:    5
     -------------------------------------------------------------
+
+TODO:
+    Think about memoization. Some cases make this impractical, for example
+    the top50 most visited articles have a gigantic amount of links that
+    direct to them (top50 mean=47300). Perhaps change the memoizing to be
+    optional and editable within the WikiGraph object instances instead of
+    just as a function decorator. This would make all functions that need
+    to make requests to the api more flexable in terms of their memory usage.
+
+TODO:
+    Investigate strategies for cases where inbound links really big for
+    similar reasons as above. For example 'United States' has around 463000
+    links to it, is it a reasonable to loop through of these before checking
+    the other end of the search.
+
+TODO:
+    Handle edge cases for when start or end articles have no links pointing
+    to and from them. Policy now is just to run until the users patience runs
+    out. Of the 500 random sample collected this did not happen or if it did
+    wikipedia rediriected us to another page.
 '''
 from __future__ import print_function
 
@@ -51,10 +71,10 @@ right_params.update(default)
 class WikiGraph(object):
     '''WikiGraph implements methods for connecting to the WikiMedia API
     orientated to finding paths between articles and information between
-    nodes. Public methods are: `find_path`, `indegree` and `random_sample`.
-    When using with find_path it is better use in a session or in a batch
-    collection as memoization means it will speed up searches and reduce
-    requests to the Wikimedia API.'''
+    nodes. Public methods are: `find_path`, `indegree`, `random_sample`,
+    and 'links'. When using with find_path it is better use in a session
+    or in a batch collection as memoization means it will speed up searches
+    and reduce requests to the Wikimedia API.'''
 
     def __init__(self, print_requests=False):
         self.print_requests = print_requests
@@ -68,13 +88,30 @@ class WikiGraph(object):
         self.requests_bwk = 0
         t1 = datetime.now()
         return Path(start=start, end=end,
-                    path=self._bidirectional_search(start, end, self.wiki_links),
+                    path=self._bidirectional_search(start, end, self.path_links),
                     time=(datetime.now() - t1).total_seconds(),
                     requests=self.requests_fwd + self.requests_bwk)
 
     def indegree(self, title):
-        "return the number of links to a given article."
-        return len(self.wiki_links(title, False))
+        '''return the number of links to a given article. This corresponds
+        to using the "linkshere" property of the WikiMedia api.'''
+        params = right_params
+        params["titles"] = title
+        # iterate through requests and get a cumsum.
+        total = 0
+        for result in self._query(params):
+            node = next(iter(result['pages'].values()))
+            if not "linkshere" in node:
+                print("Title Error: Page missing results?", "'"+title+"'")
+                raise StopIteration
+            total += len(node["linkshere"])
+        return total
+
+    def links(self, title, inbound=True):
+        '''For a given article return a list of links to or from it based
+        on if kwarg inbound is set to True or False. These correspond to
+        the "linkshere" or "links" properties of the WikiMedia api.'''
+        return list(self.path_links(title, False))
 
     def random_sample(self, n=1):
         '''return a n sized list of random page titles.
@@ -143,7 +180,7 @@ class WikiGraph(object):
                     if overlap in opposite], key=len)
 
     @memoize
-    def wiki_links(self, title, is_forward):
+    def path_links(self, title, is_forward):
         '''Make a request to the Wikipedia API using the given search
         parameters. Returns a parsed dict of the JSON response.'''
         params = (left_params if is_forward else right_params)
@@ -154,6 +191,7 @@ class WikiGraph(object):
             # if there isnt any links like can happen exit the gen loop.
             if not params["prop"] in node:
                 print("Title Error: Page missing results?", "'"+title+"'")
+                # TODO: this could mean page has no links.
                 raise StopIteration
             links = [n["title"] for n in node[params["prop"]]]
             # shuffle to stop the results being completely aphabetical.
