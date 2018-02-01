@@ -54,7 +54,10 @@ int main() {
 /*
 #### Strategy:
 
-Run through the all rules above in-order of highest elimination.
+Run through the all rules above in-order of highest elimination. That
+is assert true all the conditions that can be asserted with the minimum
+amount of permataion sets. so for example #6 can be satisfied first because
+we only have to compare the positions of the colors of houses.
 We can use c++'s std::next_permutation to run through the combinations
 for each list. Labeling array indexes with human reable names will make
 the conditional logic of the program more readable and easier to debug.
