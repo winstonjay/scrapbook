@@ -1,4 +1,5 @@
-A movie review generator
+# A movie review generator
+
 Generate movie reviews with Markov chains from reviews scraped from rotten tomatoes. This is the ideal tool for someone who wants to post interesting movie reviews but has no idea about movies (and also isn’t worried about making any sense).
 
 ### Examples
