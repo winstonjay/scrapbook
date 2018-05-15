@@ -2,59 +2,91 @@
 # -*- coding: utf-8 -*-
 '''
 collectbatch.py:
-For a given sample of start articles find a path from each
-to a central end article. Save the output to a given csv file.
+For a given sample of articles find a path from each
+to a central end article. Write the output to a given csv file.
 Set --help or -h flag for more info on cmd-line args.
-eg: python collectbatch.py --help.
+
 '''
 from __future__ import print_function
-import argparse
+
 import csv
+import argparse
 from datetime import datetime
+
 from wikigraph import WikiGraph
 
 
 def main():
-    parser = construct_parser()
+    # initialise args from cli
+    parser = argparse.ArgumentParser(
+        "For a given sample of articles find a path from each to a central end"
+        " article. Write the output to a given csv file.")
+    parser.add_argument(
+        "-o",
+        "--outfile",
+        help="Filename to save the results to.",
+        type=str,
+        default="wikiresults.json")
+    parser.add_argument(
+        "-x",
+        "--center",
+        help="Title of valid wiki page to center all nodes on",
+        type=str,
+        default="Homunculus")
+    parser.add_argument(
+        "-k",
+        "--sample_size",
+        help="Sample size of k pages to search from. "
+             "(Only applies when sample source is not given)",
+        type=int,
+        default=1)
+    parser.add_argument(
+        "-s",
+        "--sample_source",
+        help="Filename containing newline delimited list of valid "
+             "wiki article titles if not specified sample defaults "
+             "to random selection from wikimedia api. ",
+        type=str)
+    parser.add_argument(
+        "-v",
+        action='store_true',
+        help="add to display titles of page requests made.")
     args = parser.parse_args()
-    size = args.num or 1
-    center = args.center or 'Homunculus'
-    wg = WikiGraph(print_requests=True)
-    sample = (load_sample(args.set, size) if args.source else
-              wg.random_sample(size))
-    results = {"start", "end", "path"}
-    (ttime, treqs) = (datetime.now(), 0)
+
+
+    wiki_graph = WikiGraph(print_requests=True)
+
+    # resolve any issues with search sample source.
+    if args.sample_source:
+        sample = load_sample(args.set, size)
+    else:
+        sample = wiki_graph.random_sample(args.sample_size)
+
     with open(args.outfile, mode='w') as outfile:
-        cs = csv.DictWriter(outfile, ["start", "end", "path", "degree"])
-        cs.writeheader()
+        writer = csv.DictWriter(outfile, ["start", "end", "path", "degree"])
+        writer.writeheader()
+
+        total_time = datetime.now()
+        total_requests = 0
+
         for page in sample:
-            print("Searching: '%s' -> '%s'" % (page, center))
-            path = wg.find_path(page, center)
+            print("Searching: '%s' -> '%s'" % (page, args.center))
+            path = wiki_graph.find_path(page, args.center)
             path.print_stats()
-            cs.writerow(path.data())
-            treqs += path.requests
-    ttime = (datetime.now() - ttime).total_seconds()
-    print("Finished Totals:\nN={}. Time={}. Requests={}.".format(size, ttime, treqs))
+            writer.writerow(path.data())
+            total_requests += path.requests
+
+        total_time = (datetime.now() - total_time).total_seconds()
+        print("Finished Totals: "
+              "N={}. Time={}. Requests={}.".format(
+                args.sample_size, total_time, total_requests))
+
 
 def load_sample(filename, n):
     "return list from file of article names delimited by newlines."
     with open(filename, mode='r') as sample:
         return sample.read().strip().splitlines()[:n]
 
-def construct_parser():
-    parser = argparse.ArgumentParser()
-    f_help = "Filename to save the results to."
-    c_help = '''Title of valid wiki page to center all nodes from.
-                default="Homunculus"'''
-    n_help = "Sample size to collect. default=1."
-    s_help = '''Filename containing newline delimited list of valid
-                wiki article titles if not specified sample defaults
-                to random selection from wikimedia api.'''
-    parser.add_argument("outfile", help=f_help, type=str)
-    parser.add_argument("-x", "--center", help=c_help, type=str)
-    parser.add_argument("-s", "--source", help=s_help, type=str)
-    parser.add_argument("-n", "--num", help=n_help, type=int)
-    return parser
 
 if __name__ == '__main__':
     main()

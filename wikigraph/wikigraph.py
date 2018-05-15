@@ -46,40 +46,18 @@ from __future__ import print_function
 from collections import deque
 from datetime import datetime
 
-import random
-import requests
-
-from memo import memoize
-
-#### Info for connecting to the api.
-
-API_URL = "https://en.wikipedia.org/w/api.php"
-USER_AGENT = "HOMUNCULUS"
-headers = {'User-Agent': USER_AGENT}
-
-# https://www.mediawiki.org/wiki/API:Query
-default = {"format": "json", "action": "query"}
-# for searching forwards.
-left_params = {"prop": "links", "plnamespace": 0, "pllimit": "max"}
-left_params.update(default)
-# for searching backwards.
-right_params = {"prop": "linkshere", "lhnamespace": 0,
-                "lhlimit": "max", "lhprop": "title"}
-right_params.update(default)
+from wikiapi import WikiAPI
 
 
-class WikiGraph(object):
-    '''WikiGraph implements methods for connecting to the WikiMedia API
+class WikiGraph(WikiAPI):
+    '''
+    WikiGraph implements methods for connecting to the WikiMedia API
     orientated to finding paths between articles and information between
-    nodes. Public methods are: `find_path`, `indegree`, `random_sample`,
-    and 'links'. When using with find_path it is better use in a session
-    or in a batch collection as memoization means it will speed up searches
-    and reduce requests to the Wikimedia API.'''
-
-    def __init__(self, print_requests=False):
-        self.print_requests = print_requests
-        self.requests_fwd = 0
-        self.requests_bwk = 0
+    nodes. Public methods are: `find_path`, `indegree`. When using with
+    find_path it is better use in a session or in a batch collection as
+    memoization means it will speed up searches and reduce requests to
+    the Wikimedia API.
+    '''
 
     def find_path(self, start, end):
         '''Find a valid path between 2 given wikipedia articles
@@ -88,45 +66,33 @@ class WikiGraph(object):
         self.requests_bwk = 0
         t1 = datetime.now()
         return Path(start=start, end=end,
-                    path=self._bidirectional_search(start, end, self.path_links),
+                    path=self._bidirectional_search(start, end, self.page_links),
                     time=(datetime.now() - t1).total_seconds(),
                     requests=self.requests_fwd + self.requests_bwk)
 
     def indegree(self, title):
         '''return the number of links to a given article. This corresponds
         to using the "linkshere" property of the WikiMedia api.'''
-        params = right_params
+        params = self.right_params
         params["titles"] = title
         # iterate through requests and get a cumsum.
         total = 0
         for result in self._query(params):
             node = next(iter(result['pages'].values()))
             if not "linkshere" in node:
-                print("Title Error: Page missing results?", "'"+title+"'")
+                print("Title Error: Page missing results? '%s'" % title)
                 raise StopIteration
             total += len(node["linkshere"])
         return total
 
-    def links(self, title, inbound=True):
-        '''For a given article return a list of links to or from it based
-        on if kwarg inbound is set to True or False. These correspond to
-        the "linkshere" or "links" properties of the WikiMedia api.'''
-        return list(self.path_links(title, False))
-
-    def random_sample(self, n=1):
-        '''return a n sized list of random page titles.
-        Reference: https://www.mediawiki.org/wiki/API:Random'''
-        params = {'list': 'random', 'rnnamespace': 0, 'rnlimit': n}
-        params.update(default)
-        request = requests.get(API_URL, params=params, headers=headers).json()
-        return [page['title'] for page in request['query']['random']]
-
     def _bidirectional_search(self, start, end, successors):
-        '''Use a unweighted bidirectional search to form paths from start to
+        '''
+        Use a unweighted bidirectional search to form paths from start to
         end args. This works as Breath-First-Search from both start and end nodes
         at the same time balancing traversals by requests made to the api from each
         side. It Keeps track of each sides explored nodes returning the shortest
-        merged path when a overlap occurs.'''
+        merged path when a overlap occurs.
+        '''
         if start == end:
             return [start]
         found_paths = []
@@ -179,63 +145,13 @@ class WikiGraph(object):
                     for opposite in frontier
                     if overlap in opposite], key=len)
 
-    @memoize
-    def path_links(self, title, is_forward):
-        '''Make a request to the Wikipedia API using the given search
-        parameters. Returns a parsed dict of the JSON response.'''
-        params = (left_params if is_forward else right_params)
-        params["titles"] = title
-        # iteraterate through the results of our query.
-        for result in self._query(params):
-            node = next(iter(result['pages'].values()))
-            # if there isnt any links like can happen exit the gen loop.
-            if not params["prop"] in node:
-                print("Title Error: Page missing results?", "'"+title+"'")
-                # TODO: this could mean page has no links.
-                raise StopIteration
-            links = [n["title"] for n in node[params["prop"]]]
-            # shuffle to stop the results being completely aphabetical.
-            random.shuffle(links)
-            # emit the links gathered.
-            for link in links:
-                yield link
-
-    def _query(self, request):
-        '''Generator function for retrieving links from wikimedia API whilst
-        keeping track of request counts. Reference:
-        https://www.mediawiki.org/wiki/API:Query'''
-        lastContinue = {}
-        while True:
-            if request["prop"] == 'links':
-                self.requests_fwd += 1
-            else:
-                self.requests_bwk += 1
-            # Clone original request
-            req = request.copy()
-            if self.print_requests:
-                print("request: " + req["titles"])
-            # Modify it with the values returned in the 'continue' section
-            # of the last result.
-            req.update(lastContinue)
-            # Call API
-            result = requests.get(API_URL, params=req, headers=headers).json()
-            if 'error' in result:
-                raise Error(result['error'])
-            if 'warnings' in result:
-                print(result['warnings'])
-            if 'query' in result:
-                if len(result['query']) != 0:
-                    yield result['query']
-            if 'continue' not in result:
-                break
-            lastContinue = result['continue']
-
 
 class Path(object):
-    '''Path is returned by the WikiGraph.find_path method. It stores
+    '''
+    Path is returned by the WikiGraph.find_path method. It stores
     the state of the path whilst implementing methods for displaying
-    and returning its data.'''
-
+    and returning its data.
+    '''
     def __init__(self, start, end, path=[], time=None, requests=None):
         self.start = start
         self.end = end
@@ -244,7 +160,9 @@ class Path(object):
         self.time = time
         self.requests = requests
 
-    def __nonzero__(self): return bool(self.path)
+    def __nonzero__(self):
+        "is the path empty"
+        return bool(self.path)
 
     def data(self):
         "return path output as a dict."
@@ -255,9 +173,10 @@ class Path(object):
 
     def print_stats(self):
         "Print the results to the stdout."
-        print("Found Path:")
-        print("\tPath:        %s" % " -> ".join(self.path))
-        print("\tSeparation:  %d steps" % (self.degree))
-        print("\tTime Taken:  %f seconds" % self.time)
-        print("\tRequests:    %d" % self.requests)
-        print("-"*80)
+        path = " -> ".join(self.path)
+        print("Found Path:\n"
+              "\tPath:        %s\n"
+              "\tSeparation:  %d steps\n"
+              "\tTime Taken:  %f seconds\n"
+              "\tRequests:    %d\n%s"
+              % (path, self.degree, self.time, self.requests, "-"*80))

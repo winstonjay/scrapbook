@@ -1,33 +1,45 @@
-#!/usr/bin/env python
 # -*- coding: utf-8 -*-
 '''
-findpath.py:
+findpath.py :
 Find a single path between two wikipedia articles and
 output information about it to the stdout.
-Set --help or -h flag for more info on cmd-line args.
-eg: python findpath.py --help
+
+usage: Find a path between two Wikipedia pages via their links.
+       [-h] --start START --end END
+
+optional arguments:
+  -h, --help     show this help message and exit
+  --start START  Title of valid wikipedia page to start from.
+  --end END      Title of valid wikipedia page to reach.
 '''
 from __future__ import print_function
+
 import argparse
+
 from wikigraph import WikiGraph
 
 def main():
-    parser = construct_parser()
+    parser = argparse.ArgumentParser(
+        "Find a path between two Wikipedia pages via their links.")
+    parser.add_argument(
+        "--start",
+        help="Title of valid wikipedia page to start from.",
+        type=str,
+        required=True)
+    parser.add_argument(
+        "--end",
+        help="Title of valid wikipedia page to reach.",
+        type=str,
+        required=True)
     args = parser.parse_args()
-    start, end = args.start, args.end or "Homunculus"
-    wiki_graph = WikiGraph()
-    print("Searching:  '%s' -> '%s'" % (start, end))
-    path = wiki_graph.find_path(start, end)
-    print(path.print_stats() if path else "Failed Search.")
 
-def construct_parser():
-    # Set up argparse with start as a positional arg and end as optional.
-    parser = argparse.ArgumentParser()
-    s_help = "Title of valid wiki page to start from. E.g.'Santa Claus'"
-    e_help = "Title of valid wiki page to end on default is 'Homunclus'"
-    parser.add_argument("start", help=s_help, type=str)
-    parser.add_argument("-e", "--end", help=e_help, type=str)
-    return parser
+    wiki_graph = WikiGraph()
+    print("Searching:  '%s' -> '%s'" % (args.start, args.end))
+    path = wiki_graph.find_path(args.start, args.end)
+    if path:
+        path.print_stats()
+    else:
+        print("Failed Search.")
 
 if __name__ == '__main__':
     main()
