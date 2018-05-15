@@ -6,6 +6,7 @@ The file `wikigraph.py` implements classes for finding paths between wikipedia a
 
 The main method `find_path` is better run in a shell session or in a batch collection as its use of memoization will speed up searches whilst it runs, reducing requests to the Wikimedia API.
 
+```python
     >>> from wikigraph import WikiGraph
     >>> wg = WikiGraph()
     >>> path = wg.find_path("Kevin Bacon", "Tom Hanks")
@@ -18,7 +19,7 @@ The main method `find_path` is better run in a shell session or in a batch colle
     -------------------------------------------------------------
     >>> path.data()
     {'start': 'Kevin Bacon', 'end': 'Tom Hanks', 'path': 'Tom Hanks->Kevin Bacon', 'degree': 1}
-
+```
 ### collectbatch.py
 
 For a given sample of start articles find a path from each to a central end article.
