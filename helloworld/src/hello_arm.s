@@ -1,6 +1,7 @@
-@ For Rasberry Pi etc...
-@ Hello World ( Arm Assembly )
-@ $ TODO
+@ Hello World ( Assembly Raspberry Pi ARM )
+@ $ as -o tmp/hello_arm.o hello_arm.s
+@ $ ld -o bin/hello_arm tmp/hello_arm.o
+@ $ ./bin/hello_arm
 
 .text
 

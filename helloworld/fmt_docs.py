@@ -16,7 +16,7 @@ def extract_docs(filename):
                 print("%s (%s):\n" % (lang, filename))
             if '$' in line:
                 run_cmd = line[2:].strip()
-                print("\t%s\n" % run_cmd)
+                print("\t%s" % run_cmd)
         print("")
 
 pagehead = """# Hello, World
