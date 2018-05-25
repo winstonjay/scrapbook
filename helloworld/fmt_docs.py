@@ -14,7 +14,7 @@ def extract_docs(filename):
         for line in fn.readlines():
             if 'Hello World' in line:
                 lang = line[line.find("(")+1:line.find(")")].strip()
-                print("%s (%s):\n" % (lang, filename))
+                print("%s [%s](%s):\n" % (lang, filename, filename))
             if '$' in line and cmds < 3:
                 run_cmd = line[2:].strip()
                 print("\t%s" % run_cmd)
