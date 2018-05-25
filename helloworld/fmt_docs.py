@@ -9,14 +9,16 @@ def main():
             extract_docs('src/%s' % filename)
 
 def extract_docs(filename):
+    cmds = 0
     with open(filename, 'r') as fn:
         for line in fn.readlines():
             if 'Hello World' in line:
                 lang = line[line.find("(")+1:line.find(")")].strip()
                 print("%s (%s):\n" % (lang, filename))
-            if '$' in line:
+            if '$' in line and cmds < 3:
                 run_cmd = line[2:].strip()
                 print("\t%s" % run_cmd)
+                cmds += 1
         print("")
 
 pagehead = """# Hello, World
