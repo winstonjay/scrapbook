@@ -1,7 +1,7 @@
 ; Hello World ( Assembly Mac osx )
 ; $ nasm -f macho64 -o hello_macho64.s hello_macho64.s
 ; $ ld -o hello_macho64 hello_macho64.o
-; $ hello_macho64.s
+; $ ./hello_macho64
 
 global  start
 

@@ -86,5 +86,5 @@ Assembly Mac osx [src/hello_macho64.s](src/hello_macho64.s):
 
 	$ nasm -f macho64 -o hello_macho64.s hello_macho64.s
 	$ ld -o hello_macho64 hello_macho64.o
-	$ hello_macho64.s
+	$ ./hello_macho64
 
