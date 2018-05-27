@@ -7,25 +7,25 @@ The file `wikigraph.py` implements classes for finding paths between wikipedia a
 The main method `find_path` is better run in a shell session or in a batch collection as its use of memoization will speed up searches whilst it runs, reducing requests to the Wikimedia API.
 
 ```python
->>> from wikigraph import WikiGraph
->>> w = WikiGraph()
+>>> import wikigraph
+>>> w = wikigraph.WikiGraph()
 >>> path = w.find_path(start="Tom Hanks", end="Kevin Bacon")
 >>> print(path)
-<wikigraph.Path: Kevin Bacon -> Tom Hanks>
+<wikigraph.Path: Tom Hanks -> Kevin Bacon>
 >>> print(path.info)
 Path:
-        Path:        Kevin Bacon -> Tom Hanks
+        Path:        Tom Hanks -> Kevin Bacon
         Separation:  1 steps
-        Time Taken:  0.686887 seconds
+        Time Taken:  0.578131 seconds
         Requests:    2
 
 >>> path.data
-{'start': 'Tom Hanks', 'end': 'Kevin Bacon', 'path': 'Kevin Bacon->Tom Hanks', 'degree': 1}
+{'start': 'Tom Hanks', 'end': 'Kevin Bacon', 'path': 'Tom Hanks->Kevin Bacon', 'degree': 1}
 >>> print(path.json(indent=2))
 {
   "start": "Tom Hanks",
   "end": "Kevin Bacon",
-  "path": "Kevin Bacon->Tom Hanks",
+  "path": "Tom Hanks->Kevin Bacon",
   "degree": 1
 }
 ```
