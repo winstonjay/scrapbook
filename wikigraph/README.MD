@@ -1,6 +1,6 @@
 # Wikigraph
 
-The file `wikigraph.py` implements classes for finding paths between wikipedia articles and other related functions using the [wikimedia API](https://www.mediawiki.org/wiki/API:Main_page). A path is created by linking articles by the links they contain, just like the [wikipedia game](https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game).
+The file `wikigraph.py` implements classes for finding paths between wikipedia articles and other related functions using the [wikimedia API](https://www.mediawiki.org/wiki/API:Main_page). A path is created by linking articles by the links they contain, just like the [wikipedia game](https://en.wikipedia.org/wiki/Wikipedia:Wiki_Game). See blog post [https://winstonjay.github.io/posts/homunculus](https://winstonjay.github.io/posts/homunculus) for more info on project motivations.
 
 ### Example session:
 
