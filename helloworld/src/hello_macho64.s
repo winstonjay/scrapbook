@@ -19,5 +19,5 @@ start:
 
 
 section .data
-msg:    db      "Hello, world!", 0xa ; 0xa is newline
+msg:    db      "Hello, world!", 0xa ; note newline at end
 .len:   equ     $ - msg

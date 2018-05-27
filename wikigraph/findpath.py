@@ -37,7 +37,7 @@ def main():
     print("Searching:  '%s' -> '%s'" % (args.start, args.end))
     path = wiki_graph.find_path(args.start, args.end)
     if path:
-        path.print_stats()
+        print(path.info)
     else:
         print("Failed Search.")
 

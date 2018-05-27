@@ -58,9 +58,11 @@ def main():
 
     # resolve any issues with search sample source.
     if args.sample_source:
-        sample = load_sample(args.set, size)
+        sample = load_sample(args.set)
+        size = len(sample)
     else:
         sample = wiki_graph.random_sample(args.sample_size)
+        size = args.sample_size
 
     with open(args.outfile, mode='w') as outfile:
         writer = csv.DictWriter(outfile, ["start", "end", "path", "degree"])
@@ -69,11 +71,11 @@ def main():
         total_time = datetime.now()
         total_requests = 0
 
-        for page in sample:
-            print("Searching: '%s' -> '%s'" % (page, args.center))
+        for i, page in enumerate(sample):
+            print("%d/%d Searching: '%s' -> '%s'" % (i+1, size, page, args.center))
             path = wiki_graph.find_path(page, args.center)
-            path.print_stats()
-            writer.writerow(path.data())
+            print(path.info)
+            writer.writerow(path.data)
             total_requests += path.requests
 
         total_time = (datetime.now() - total_time).total_seconds()
@@ -82,10 +84,10 @@ def main():
                 args.sample_size, total_time, total_requests))
 
 
-def load_sample(filename, n):
+def load_sample(filename):
     "return list from file of article names delimited by newlines."
     with open(filename, mode='r') as sample:
-        return sample.read().strip().splitlines()[:n]
+        return sample.read().strip().splitlines()
 
 
 if __name__ == '__main__':

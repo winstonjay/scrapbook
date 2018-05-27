@@ -11,15 +11,26 @@ speed up searches whilst it runs, reducing requests to the Wikimedia API.
 
 Example session:
     >>> from wikigraph import WikiGraph
-    >>> wg = WikiGraph()
-    >>> path = wg.find_path("Kevin Bacon", "Tom Hanks")
-    >>> path.print_stats()
-    Found Path:
-        Path:        Tom Hanks -> Kevin Bacon
-        Separation:  1 steps
-        Time Taken:  1.498983 seconds
-        Requests:    5
-    -------------------------------------------------------------
+    >>> w = WikiGraph()
+    >>> path = w.find_path(start="Tom Hanks", end="Kevin Bacon")
+    >>> print(path)
+    <wikigraph.Path: Kevin Bacon -> Tom Hanks>
+    >>> print(path.info)
+    Path:
+            Path:        Kevin Bacon -> Tom Hanks
+            Separation:  1 steps
+            Time Taken:  0.686887 seconds
+            Requests:    2
+
+    >>> path.data
+    {'start': 'Tom Hanks', 'end': 'Kevin Bacon', 'path': 'Kevin Bacon->Tom Hanks', 'degree': 1}
+    >>> print(path.json(indent=2))
+    {
+        "start": "Tom Hanks",
+        "end": "Kevin Bacon",
+        "path": "Kevin Bacon->Tom Hanks",
+        "degree": 1
+    }
 
 TODO:
     Think about memoization. Some cases make this impractical, for example
@@ -43,6 +54,7 @@ TODO:
 '''
 from __future__ import print_function
 
+import json
 from collections import deque
 from datetime import datetime
 
@@ -164,6 +176,25 @@ class Path(object):
         "is the path empty"
         return bool(self.path)
 
+    def __str__(self):
+        "More infomative string representation"
+        return "<%s.%s: %s>" % (self.__class__.__module__,
+                                self.__class__.__name__,
+                                " -> ".join(self.path))
+
+    @property
+    def info(self):
+        "return infomaiton about a given path"
+        path = " -> ".join(self.path)
+        name = self.__class__.__name__
+        return ("%s:\n"
+                "\tPath:        %s\n"
+                "\tSeparation:  %d steps\n"
+                "\tTime Taken:  %f seconds\n"
+                "\tRequests:    %d\n"
+                % (name, path, self.degree, self.time, self.requests))
+
+    @property
     def data(self):
         "return path output as a dict."
         return dict(start=self.start,
@@ -171,12 +202,6 @@ class Path(object):
                     path="->".join(self.path),
                     degree=self.degree)
 
-    def print_stats(self):
-        "Print the results to the stdout."
-        path = " -> ".join(self.path)
-        print("Found Path:\n"
-              "\tPath:        %s\n"
-              "\tSeparation:  %d steps\n"
-              "\tTime Taken:  %f seconds\n"
-              "\tRequests:    %d\n%s"
-              % (path, self.degree, self.time, self.requests, "-"*80))
+    def json(self, **kwargs):
+        "return result data as json"
+        return json.dumps(self.data, **kwargs)
