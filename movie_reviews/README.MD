@@ -10,7 +10,7 @@ Generate movie reviews with Markov chains from reviews scraped from rotten tomat
 
 > *I watched this wonderful movie for the integrity of it.*
 
-> put me to sleep. i'm being generous by giving 2 stars because 2 great actors played in it but otherwise real audio and visual communication totally kills it and many other movies done to date.
+> *put me to sleep. i'm being generous by giving 2 stars because 2 great actors played in it but otherwise real audio and visual communication totally kills it and many other movies done to date.*
 
 ### Use
 
