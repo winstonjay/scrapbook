@@ -4,11 +4,11 @@ Generate movie reviews with Markov chains from reviews scraped from rotten tomat
 
 ### Examples
 
-> If you negatively reviewed this movie, and none of them were resolved by the end of the movie, you are crazy.
+> *If you negatively reviewed this movie, and none of them were resolved by the end of the movie, you are crazy.*
 
-> Story line kinda boring. i did find leto's character not necessary and his monologue felt endless.
+> *Story line kinda boring. i did find leto's character not necessary and his monologue felt endless.*
 
-> I watched this wonderful movie for the integrity of it.
+> *I watched this wonderful movie for the integrity of it.*
 
 > put me to sleep. i'm being generous by giving 2 stars because 2 great actors played in it but otherwise real audio and visual communication totally kills it and many other movies done to date.
 
